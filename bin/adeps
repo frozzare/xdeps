@@ -1,0 +1,81 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const fs = require('fs');
+const execa = require('execa');
+const argv = require('minimist')(process.argv.slice(2));
+const { findDeps } = require('../dist');
+const pkg = require('../package.json');
+const glob = require('glob');
+const cwd = process.cwd();
+
+const help = `Usage: ${pkg.name} [options] [glob pattern]
+
+${pkg.description}
+
+Default glob pattern:
+    {cwd}/src/**/*.+(js|ts|jsx|tsx|vue)
+
+Options
+  -i, --install     install all dependencies (not dev dependencies)
+  -d, --dev         install all dependencies as dev dependencies
+  -v, --version     output the version number
+  -h, --help        output usage information`;
+
+if (argv.v || argv.version) {
+  console.log(pkg.version);
+  return;
+}
+
+if (argv.h || argv.help) {
+  console.log(help);
+  return;
+}
+
+const run = (cmd, args) => {
+  console.log(`Running: ${cmd} ${args.join(' ')}`);
+  return execa(cmd, args, {
+    stderr: process.stderr,
+    stdout: process.stdout,
+  });
+};
+
+const useYarn = (cwd = process.cwd()) =>
+  fs.existsSync(path.resolve(cwd, 'yarn.lock'));
+
+const options = {};
+
+if (argv._.length) {
+  const pattern = argv._[0];
+  options.pattern = path.isAbsolute(pattern) ? pattern : `${cwd}/${pattern}`;
+}
+
+findDeps(cwd, options)
+  .then((deps) => {
+    if (!deps.length) {
+      console.log('No dependencies found');
+      return;
+    }
+
+    if (!argv.i && !argv.install && !argv.d && !argv.dev) {
+      console.log('Skipping install. Found dependencies:\n');
+      deps
+        .sort((a, b) => a.localeCompare(b))
+        .forEach((d) => console.log(`- ${d}`));
+      return;
+    }
+
+    const client = useYarn(cwd) ? 'yarn' : 'npm';
+
+    let installArgs;
+    if (client === 'npm') {
+      installArgs = ['install', argv.d || argv.dev ? '--save-dev' : '--save'];
+    } else if (client === 'yarn') {
+      installArgs = ['add', argv.d || argv.dev ? '--dev' : ''];
+    }
+
+    run(client, [...installArgs, ...deps]);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
