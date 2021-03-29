@@ -6,15 +6,14 @@ const execa = require('execa');
 const argv = require('minimist')(process.argv.slice(2));
 const { findDeps } = require('../dist');
 const pkg = require('../package.json');
-const glob = require('glob');
 const cwd = process.cwd();
 
-const help = `Usage: ${pkg.name} [options] [glob pattern]
+const help = `Usage: ${pkg.name} [options] [glob pattern or directory]
 
 ${pkg.description}
 
 Default glob pattern:
-    {cwd}/src/**/*.+(js|ts|jsx|tsx|vue)
+    \${cwd}/src/**/*.+(js|ts|jsx|tsx|vue)
 
 Options
   -i, --install     install all dependencies (not dev dependencies)
@@ -47,7 +46,9 @@ const options = {};
 
 if (argv._.length) {
   const pattern = argv._[0];
-  options.pattern = path.isAbsolute(pattern) ? pattern : `${cwd}/${pattern}`;
+  options.pattern = path.isAbsolute(pattern)
+    ? pattern
+    : path.join(cwd, pattern);
 }
 
 findDeps(cwd, options)
