@@ -6,6 +6,8 @@ Find node dependencies from files, directory or text.
 
 ## usage
 
+### CLI
+
 ```
 Usage: xdeps [options] [glob pattern or directory]
 
@@ -20,3 +22,17 @@ Options
   -v, --version     output the version number
   -h, --help        output usage information
 ```
+
+### Module
+
+```js
+const { findDeps } = require('xdeps');
+
+findDeps(__dirname).then((deps) => {
+  console.log(deps);
+});
+```
+
+## License
+
+MIT © [Fredrik Forsmo](https://github.com/frozzare)
