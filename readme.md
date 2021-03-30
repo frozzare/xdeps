@@ -1,10 +1,8 @@
 # xdeps
 
-> work in progress
-
 Find node dependencies from files, directory or text.
 
-## usage
+## Usage
 
 ### CLI
 
