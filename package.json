@@ -1,20 +1,26 @@
 {
-  "name": "adeps",
-  "version": "1.0.0-alpha.1",
+  "name": "xdeps",
+  "version": "1.0.0-alpha.2",
   "description": "Description to be added",
   "main": "dist/index.js",
+  "types": "dist",
   "bin": {
-    "adeps": "bin/adeps"
+    "xdeps": "bin/xdeps"
   },
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/frozzare/xdeps.git"
+  },
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf ./dist tsconfig.tsbuildinfo",
     "compile": "tsc",
     "lint": "eslint src/** --ext .ts",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "find",

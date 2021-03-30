@@ -85,5 +85,7 @@ export const findDeps = async (
     }
   }
 
-  return Array.from(new Set(filterDeps(deps)));
+  return Array.from(new Set(filterDeps(deps))).sort((a, b) =>
+    a.localeCompare(b)
+  );
 };

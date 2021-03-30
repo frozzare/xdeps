@@ -60,9 +60,7 @@ findDeps(cwd, options)
 
     if (!argv.i && !argv.install && !argv.d && !argv.dev) {
       console.log('Skipping install. Found dependencies:\n');
-      deps
-        .sort((a, b) => a.localeCompare(b))
-        .forEach((d) => console.log(`- ${d}`));
+      deps.forEach((d) => console.log(`- ${d}`));
       return;
     }
 
@@ -75,7 +73,7 @@ findDeps(cwd, options)
       installArgs = ['add', argv.d || argv.dev ? '--dev' : ''];
     }
 
-    run(client, [...installArgs, ...deps]);
+    run(client, [...installArgs, ...deps].filter(Boolean));
   })
   .catch((err) => {
     console.error(err);

@@ -1,4 +1,4 @@
-# adeps
+# xdeps
 
 > work in progress
 
@@ -7,7 +7,7 @@ Find node dependencies from directory or text.
 ## usage
 
 ```
-Usage: adeps [options] [glob pattern or directory]
+Usage: xdeps [options] [glob pattern or directory]
 
 Description to be added
 
