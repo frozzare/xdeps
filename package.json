@@ -1,6 +1,6 @@
 {
   "name": "xdeps",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0",
   "description": "Find node dependencies from files, directory or text.",
   "main": "dist/index.js",
   "types": "dist",
