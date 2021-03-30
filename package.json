@@ -2,7 +2,13 @@
   "name": "adeps",
   "version": "1.0.0-alpha.1",
   "description": "Description to be added",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "bin": {
+    "adeps": "bin/adeps"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf ./dist tsconfig.tsbuildinfo",
