@@ -23,7 +23,7 @@ describe('test', () => {
         text: true,
       }
     );
-    expect(deps).toEqual(['fs', 'foo-bar-something-124-w']);
+    expect(deps).toEqual(['foo-bar-something-124-w', 'fs']);
   });
 
   it('should find deps in text even if mixed', async () => {
@@ -33,6 +33,6 @@ describe('test', () => {
         text: true,
       }
     );
-    expect(deps).toEqual(['fs', 'foo-bar-something-124-w', 'path', 'dotenv']);
+    expect(deps).toEqual(['dotenv', 'foo-bar-something-124-w', 'fs', 'path']);
   });
 });
