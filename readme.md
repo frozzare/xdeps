@@ -2,7 +2,7 @@
 
 > work in progress
 
-Find node dependencies from directory or text.
+Find node dependencies from files, directory or text.
 
 ## usage
 

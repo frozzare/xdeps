@@ -1,7 +1,7 @@
 {
   "name": "xdeps",
   "version": "1.0.0-alpha.2",
-  "description": "Description to be added",
+  "description": "Find node dependencies from files, directory or text.",
   "main": "dist/index.js",
   "types": "dist",
   "bin": {
