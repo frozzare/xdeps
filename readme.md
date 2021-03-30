@@ -9,7 +9,7 @@ Find node dependencies from files, directory or text.
 ```
 Usage: xdeps [options] [glob pattern or directory]
 
-Description to be added
+Find node dependencies from files, directory or text.
 
 Default glob pattern:
     ${cwd}/src/**/*.+(js|ts|jsx|tsx|vue)
